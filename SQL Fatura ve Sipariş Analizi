@@ -1,6 +1,8 @@
 --Those whose invoices were issued and those whose invoices were not issued, based on SIP number
-select ORDERID , IIF(CARGOFICHENO IS NULL , 'Faturası kesilmemiş', 'FATURASI KESİLMİŞ')
-from INVOICES ;
+select  CARGOFICHENO, IIF(CARGOFICHENO IS NULL , 'Faturası kesilmemiş', 'FATURASI KESİLMİŞ')
+from Orders o 
+Inner join INVOICES as ın 
+on o.ID=ın.ORDERID
 
 --the total number of invoices and the total invoice amount for each customer
 select
