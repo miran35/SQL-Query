@@ -1,0 +1,103 @@
+--Hangi firmalar hangi ürünleri satıyor? Firma adı ve ürün adını getir
+Select
+   c.companyName,                         
+   p.ProductName
+from Company as c
+Inner join CompanyProduct as cp
+on c.ID=cp.CompanyID 
+Inner join Product as p
+on cp.ProductID =p.ID
+
+ --Tüm firmaları listele, ürünleri varsa göster.Ürünü olmayan firmalar da görünmeli
+SELECT
+    c.CompanyName,
+    p.ProductName
+FROM Company c
+LEFT JOIN CompanyProduct cp 
+    ON c.ID = cp.CompanyID
+LEFT JOIN Product p 
+    ON cp.ProductID = p.ID;
+
+--Ürünü olan firmaları listele.Ürünü olmayan firmalar gelmemeli
+SELECT
+    c.CompanyName,
+    p.ProductName
+FROM Company c
+INNER JOIN CompanyProduct cp 
+    ON c.ID = cp.CompanyID
+INNER JOIN Product p 
+    ON cp.ProductID = p.ID;
+
+--Tüm firmaları ve tüm ürünleri birlikte listele
+Select
+c.CompanyName,
+p.ProductName
+from Company as c 
+FULL join CompanyProduct as cp 
+on c.ID = cp.CompanyID
+FULL join  Product as p 
+on cp.ProductID=p.ID
+
+--Satışı yapılan ürünleri göster.Satılmayan ürünler listede olmamalı
+SELECT
+    c.CompanyName,
+    p.ProductName
+FROM Company c
+INNER JOIN CompanyProduct cp 
+    ON c.ID = cp.CompanyID
+INNER JOIN Product p 
+    ON cp.ProductID = p.ID;
+
+--Hangi firmaların ürünü yok?Ürün adı NULL olanları bul.
+SELECT 
+    c.CompanyName,
+    p.ProductName
+FROM Company c
+left JOIN CompanyProduct AS cp 
+ON c.ID=cp.CompanyID
+left JOIN Product AS p 
+ON cp.ProductID=p.ID
+where cp.ProductID IS NULL
+ 
+ 
+--Tüm ürünleri listele, satan firmaları göster.Satıcısı olmayan ürünler de gelmeli.
+select
+    c.CompanyName,
+    p.ProductName
+from Company as c
+FULL join CompanyProduct as cp
+on c.ID=cp.CompanyID
+FULL join Product as p
+on cp.ProductID=p.ID
+ 
+--Hangi ürünlerin satıcısı yok?
+select 
+c.CompanyName,
+p.ProductName
+From Product as p
+Right join CompanyProduct as cp
+on p.ID=cp.ProductID
+Right join Company as c
+on c.ID=cp.CompanyID
+Where c.ID IS NULL
+ 
+--Hangi firmaların ürünü yok VE hangi ürünlerin satıcısı yok?
+Select
+c.CompanyName,
+p.ProductName
+From Company as c
+Inner join CompanyProduct as cp
+on c.ID=cp.CompanyID
+Inner  join Product as p 
+on cp.ProductID=p.ID
+where cp.CompanyID IS NULL or cp.ProductID IS NULL
+ 
+--Firmalar ve sattıkları ürünleri listele.Ama hiçbir firma listeden düşmemeli.
+Select
+c.CompanyName,
+p.ProductName
+From Company as c
+left outer join CompanyProduct as cp
+on c.ID=cp.CompanyID
+Left outer join Product as p 
+on cp.ProductID=p.ID
