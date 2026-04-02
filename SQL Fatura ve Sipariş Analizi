@@ -1,0 +1,41 @@
+--Those whose invoices were issued and those whose invoices were not issued, based on SIP number
+select ORDERID , IIF(CARGOFICHENO IS NULL , 'Faturası kesilmemiş', 'FATURASI KESİLMİŞ')
+from INVOICES ;
+
+--the total number of invoices and the total invoice amount for each customer
+select
+o.UserID,
+SUM(I.AMOUNT) as ToplamFaturaAdedi,
+sum(ın.ToTALPRICE) as ToplamFaturaTutarı
+from INVOICEDETAILS as ı
+Inner join INVOICES as ın 
+on ı.INVOICEID=I.ID
+Inner join ORDERS as o 
+on ın.ORDERID =o.ID
+Group by o.USERID
+ORDER BY sum(ın.ToTALPRICE) desc  , SUM(I.AMOUNT) asc
+
+--Invoice total amount by province
+select
+c.CITY,
+sum(ı.ToTALPRICE) as ToplamFaturaTutarı
+from INVOICES as ı
+Inner join ADDRESS as ad
+on ı.ADDRESSID=ad.ID
+Inner join CITIES as c
+on c.ID=ad.CITYID
+Group by c.CITY
+ORDER BY sum(ı.ToTALPRICE) desc
+
+----Total orders placed from provinces, districts, and sub-districts
+select
+so.CITY,
+so.TOWN,
+sum(o.TOTALPRICE) as Total 
+from ORDERS as o 
+Inner join SALEORDERS as so
+on o.ID=so.ORDERID
+group by so.CITY,
+so.TOWN
+Order by sum(o.TOTALPRICE) desc
+
