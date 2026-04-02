@@ -1,0 +1,43 @@
+--Top 5 best-selling categories for each province (city, category, total)
+select 
+s.Cıty , s1.Category1,sum(s.LINETOTAL) AS TOTAL 
+from SALEORDERS as s
+CROSS APPLY (SELECT TOP 5 CATEGORY1 ,SUM(LINETOTAL)AS TOTAL FROM SALEORDERS WHERE CITY=s.CITY GROUP BY CATEGORY1 ORDER BY 2 DESC ) s1
+GROUP BY s.CITY,s1.CATEGORY1
+order by s.CITY,sum(s.LINETOTAL) DESC
+
+
+--The top 3 best-selling categories and top 3 best-selling subcategories for each province.
+select  
+s.CITY,s1.CATEGORY1,s2.CATEGORY2,sum(LINETOTAL)
+FROM SALEORDERS AS s
+Cross apply (select top 3 CATEGORY1,sum(LINETOTAL)AS TOTAL FROM SALEORDERS WHERE CITY=s.cıty group by CATEGORY1 order by 2 desc) s1
+Cross apply (select top 3 CATEGORY2,sum(LINETOTAL)AS TOTAL FROM SALEORDERS WHERE CITY=s.cıty group by CATEGORY2 order by 2 desc) s2
+GROUP BY s.CITY,s1.CATEGORY1,s2.CATEGORY2
+order by s.CITY,sum(LINETOTAL) DESC
+
+--For each brand's main category, retrieve the best-selling category1 (brand,cat1,total)
+select 
+ıtm.BRAND ,
+max(ıtm.Category1) as AnaKategori,
+sum(od.LINETOTAL) as Total
+from ORDERDETAILS AS od
+Inner join ITEMS as ıtm 
+on od.ITEMID=ıtm.ID
+Group by ıtm.BRAND , ıtm.CATEGORY1 
+order by ıtm.BRAND,sum(od.LINETOTAL) DESC
+
+--Top-selling brands for each category (category, brand, total)
+select
+so.CATEGORY1,
+so.Category2,
+so.Category3,
+so.Category4,
+MAX(so.brand),
+SUM (o.TOTALPRICE) 
+from ORDERS as o
+Inner join SALEORDERS as so
+on o.ID=so.ORDERID
+GROUP BY so.CATEGORY1,so.BRAND ,so.CATEGORY2,so.CATEGORY3,so.CATEGORY4,ı.BRAND,o.TOTALPRICE
+order by so.CATEGORY1,SUM(O.TOTALPRICE)
+ 
