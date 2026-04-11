@@ -1,6 +1,6 @@
 📊 SQL Query Projesi
-Bu repository, farklı iş senaryoları için hazırlanmış SQL sorgularını ve analiz çalışmalarını içermektedir. Amaç; veri analizi, raporlama ve SQL yetkinliklerini geliştirme**ye yönelik örnekler sunmaktır.**
-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Bu repository, farklı iş senaryoları için hazırlanmış SQL sorgularını ve analiz çalışmalarını içermektedir. Amaç; veri analizi, raporlama ve SQL yetkinliklerini geliştirmeye yönelik örnekler sunmaktır.
+
 📁 İçerik
 Projede yer alan başlıca çalışmalar:
 Firma ve Ürün İlişkileri
@@ -18,15 +18,15 @@ Performans ölçümleri
 Bölgesel analizler (ilçe bazlı)
 Ödeme türüne göre raporlama
 Ürün bazlı satış kırılımları
-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 🎯 Amaç
 Bu proje ile:
 SQL JOIN yapıları pratiği yapmak
 Gerçek hayata yakın veri senaryoları üzerinde çalışmak
 Raporlama ve analiz kabiliyeti geliştirmek
 Veri odaklı düşünme becerisi kazanmak
----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 🛠️ Kullanılan Teknolojiler
 SQL (T-SQL / Genel SQL yapıları)
 Veri analizi teknikleri
------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
