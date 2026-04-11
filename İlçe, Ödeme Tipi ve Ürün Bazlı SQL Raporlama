@@ -1,0 +1,67 @@
+--İlçe bazında fatura detay toplamı
+Select DISTINCT 
+sum(ı.TOTALPRICE) as FaturaToplamı,
+t.TOWN as İlçe
+from INVOICES as ı
+Inner join ADDRESS as ad on ı.ADDRESSID=ı.ID
+Inner join TOWNS as t on t.ID=ad.TOWNID
+Group by t.TOWN
+Order by sum(ı.TOTALPRICE)
+
+
+
+--Ödeme tipine göre sipariş sayısı ve toplam ödeme
+select top 5 *from ORDERDETAILS
+select
+py.PAYMENTTYPE,
+od.AMOUNT,
+sum(py.PAYMENTTOTAL) as ToplamÖdeme
+from PAYMENTS as py 
+Inner join ORDERS as o on py.ORDERID=o.ID
+Inner join ORDERDETAILS as od on o.ID=od.ORDERID
+Group by py.PAYMENTTYPE,od.AMOUNT
+
+
+--Her şehirde toplam sipariş tutarı en yüksek olan ilçe
+Select
+c.CITY as İl,
+MAX(t.TOWN) as İlçe,
+sum(o.TOTALPRICE) as ToplamTutar
+from ORDERS as o 
+Inner join ADDRESS as ad on o.ADDRESSID=ad.ID
+Inner join CITIES as c on c.ID=ad.CITYID
+Inner join TOWNS as t on t.ID=ad.TOWNID
+Group by c.CITY 
+
+
+--Her ilçede en pahalı siparişi veren kullanıcı
+Select
+so.TOWN as İlçe ,
+Max(so.NAMESURNAME) as Kullanıcı
+from SALEORDERS as so
+Group by so.TOWN
+
+
+--En çok satılan ürünün hangi ilçelerde kaç adet satılmıştır
+select top 5 * from ORDERDETAILS
+Select
+t.TOWN as İlçe,
+MAX(ı.ITEMNAME)as ÜrünAdı,
+od.AMOUNT as SatılanAdet
+from ORDERDETAILS as od 
+Inner join ORDERS as o on od.ORDERID=o.ID
+Inner join ADDRESS as ad on o.ADDRESSID=ad.ID
+Inner join TOWNS as t on t.ID=ad.TOWNID
+Inner join ITEMS as ı on ı.ID=od.ITEMID
+Group by t.TOWN,od.AMOUNT
+Order by MAX(ı.ITEMNAME)
+
+
+--İçinde birden fazla farklı ürün bulunan siparişleri listele
+Select DISTINCT
+COUNT(od.ITEMID) as ÜrünAdedi,
+ı.ITEMNAME as Ürün
+from ORDERDETAILS as od 
+Inner join ITEMS as ı on od.ITEMID =ı.ID
+Group by ı.ITEMNAME
+HAVING COUNT(od.ITEMID)>1
